@@ -316,7 +316,6 @@ public class DefaultModelBuilder
                     message += modelId + " -> ";
                 }
                 message += currentData.getId();
-
                 problems.add( new ModelProblemCollectorRequest(ModelProblem.Severity.FATAL, ModelProblem.Version.BASE).setMessage(message));
                 throw problems.newModelBuildingException();
             }
@@ -494,6 +493,7 @@ public class DefaultModelBuilder
             problems.add( new ModelProblemCollectorRequest(Severity.FATAL, Version.BASE)
                     .setMessage("Non-parseable POM " + modelSource.getLocation() + ": " + e.getMessage())
                     .setException(e));
+            
             throw problems.newModelBuildingException();
         }
         catch ( IOException e )
@@ -514,6 +514,7 @@ public class DefaultModelBuilder
             problems.add( new ModelProblemCollectorRequest(Severity.FATAL, Version.BASE)
                     .setMessage("Non-readable POM " + modelSource.getLocation() + ": " + msg)
                     .setException(e ));
+            
             throw problems.newModelBuildingException();
         }
 
@@ -847,6 +848,7 @@ public class DefaultModelBuilder
                     .setMessage( buffer.toString())
                     .setLocation(parent.getLocation( "" ))
                     .setException(e));
+            
             throw problems.newModelBuildingException();
         }
 
@@ -915,6 +917,7 @@ public class DefaultModelBuilder
                 problems.add( new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
                         .setMessage( "'dependencyManagement.dependencies.dependency.groupId' for " + dependency.getManagementKey() + " is missing.")
                         .setLocation( dependency.getLocation( "" )));
+                
                 continue;
             }
             if ( artifactId == null || artifactId.length() <= 0 )
@@ -922,6 +925,7 @@ public class DefaultModelBuilder
                 problems.add( new ModelProblemCollectorRequest( Severity.ERROR, Version.BASE)
                         .setMessage( "'dependencyManagement.dependencies.dependency.artifactId' for " + dependency.getManagementKey() + " is missing.")
                         .setLocation( dependency.getLocation( "" )));
+                
                 continue;
             }
             if ( version == null || version.length() <= 0 )
